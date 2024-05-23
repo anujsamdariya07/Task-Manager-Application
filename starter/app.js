@@ -4,6 +4,7 @@ const tasks = require('./routes/tasks');
 const connectDB = require('./db/connect');
 require('dotenv').config();
 const notFound = require('./middlewares/notFound');
+const errorHandlerMiddleware = require('./middlewares/errorHandler');
 
 // Middlewares
 app.use(express.static('./public'));
@@ -17,8 +18,9 @@ app.use('/api/v1/tasks', tasks);
 // GUI
 
 app.use(notFound);
+app.use(errorHandlerMiddleware);
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
